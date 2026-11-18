@@ -1,0 +1,328 @@
+catalog_meta:
+  format_version: 1
+  package: grdl-eo
+  package_version: 0.1.0
+  next_id: 8
+artifacts:
+- id: 1
+  name: HighPassFilter
+  version: 1.0.0
+  artifact_type: grdl_processor
+  description: 'High-pass filter retaining fine spatial details: source - gaussian_blur(source).'
+  author: geoint.org
+  license: MIT
+  pypi_package: grdl-eo
+  conda_package: grdl-eo
+  conda_channel: conda-forge
+  processor_class: grdl_eo.filters.edge.HighPassFilter
+  processor_version: 1.0.0
+  processor_type: transform
+  yaml_definition: null
+  python_dsl: null
+  tags:
+    modalities:
+    - PAN
+    - EO
+    - MSI
+    category:
+    - filters
+  requires_global_pass: false
+  alternatives: []
+  param_schema:
+    $schema: https://json-schema.org/draft/2020-12/schema
+    type: object
+    properties:
+      cutoff:
+        type: number
+        description: Gaussian cutoff sigma
+        minimum: 0.1
+        maximum: 50.0
+        default: 2.0
+      mode:
+        type: string
+        description: Boundary mode
+        enum:
+        - reflect
+        - constant
+        - nearest
+        - mirror
+        - wrap
+        default: reflect
+    additionalProperties: false
+- id: 2
+  name: LaplacianFilter
+  version: 1.0.0
+  artifact_type: grdl_processor
+  description: Discrete Laplacian second-derivative edge detector.
+  author: geoint.org
+  license: MIT
+  pypi_package: grdl-eo
+  conda_package: grdl-eo
+  conda_channel: conda-forge
+  processor_class: grdl_eo.filters.edge.LaplacianFilter
+  processor_version: 1.0.0
+  processor_type: transform
+  yaml_definition: null
+  python_dsl: null
+  tags:
+    modalities:
+    - PAN
+    - EO
+    - MSI
+    - SAR
+    category:
+    - edges
+  requires_global_pass: false
+  alternatives: []
+  param_schema:
+    $schema: https://json-schema.org/draft/2020-12/schema
+    type: object
+    properties:
+      mode:
+        type: string
+        description: Boundary mode
+        enum:
+        - reflect
+        - constant
+        - nearest
+        - mirror
+        - wrap
+        default: reflect
+    additionalProperties: false
+- id: 3
+  name: SobelFilter
+  version: 1.0.0
+  artifact_type: grdl_processor
+  description: Sobel edge enhancement and gradient filter.
+  author: geoint.org
+  license: MIT
+  pypi_package: grdl-eo
+  conda_package: grdl-eo
+  conda_channel: conda-forge
+  processor_class: grdl_eo.filters.edge.SobelFilter
+  processor_version: 1.0.0
+  processor_type: transform
+  yaml_definition: null
+  python_dsl: null
+  tags:
+    modalities:
+    - PAN
+    - EO
+    - MSI
+    - SAR
+    category:
+    - edges
+  requires_global_pass: false
+  alternatives: []
+  param_schema:
+    $schema: https://json-schema.org/draft/2020-12/schema
+    type: object
+    properties:
+      output_type:
+        type: string
+        description: Gradient component
+        enum:
+        - magnitude
+        - gradient_x
+        - gradient_y
+        default: magnitude
+      mode:
+        type: string
+        description: Boundary mode
+        enum:
+        - reflect
+        - constant
+        - nearest
+        - mirror
+        - wrap
+        default: reflect
+    additionalProperties: false
+- id: 4
+  name: UnsharpMaskFilter
+  version: 1.0.0
+  artifact_type: grdl_processor
+  description: 'Unsharp masking spatial sharpening filter: source + amount * (source
+    - blurred).'
+  author: geoint.org
+  license: MIT
+  pypi_package: grdl-eo
+  conda_package: grdl-eo
+  conda_channel: conda-forge
+  processor_class: grdl_eo.filters.edge.UnsharpMaskFilter
+  processor_version: 1.0.0
+  processor_type: transform
+  yaml_definition: null
+  python_dsl: null
+  tags:
+    modalities:
+    - PAN
+    - EO
+    - MSI
+    category:
+    - enhance
+  requires_global_pass: false
+  alternatives: []
+  param_schema:
+    $schema: https://json-schema.org/draft/2020-12/schema
+    type: object
+    properties:
+      radius:
+        type: number
+        description: Gaussian blur sigma
+        minimum: 0.1
+        maximum: 50.0
+        default: 1.0
+      amount:
+        type: number
+        description: Sharpening strength
+        minimum: 0.1
+        maximum: 10.0
+        default: 1.5
+      mode:
+        type: string
+        description: Boundary mode
+        enum:
+        - reflect
+        - constant
+        - nearest
+        - mirror
+        - wrap
+        default: reflect
+    additionalProperties: false
+- id: 5
+  name: BroveyPanSharpenTransform
+  version: 1.0.0
+  artifact_type: grdl_processor
+  description: Brovey pan-sharpening transform for multispectral imagery.
+  author: geoint.org
+  license: MIT
+  pypi_package: grdl-eo
+  conda_package: grdl-eo
+  conda_channel: conda-forge
+  processor_class: grdl_eo.fusion.pansharpen.BroveyPanSharpenTransform
+  processor_version: 1.0.0
+  processor_type: transform
+  yaml_definition: null
+  python_dsl: null
+  tags:
+    modalities:
+    - PAN
+    - MSI
+    category:
+    - enhance
+  requires_global_pass: false
+  alternatives: []
+  param_schema:
+    $schema: https://json-schema.org/draft/2020-12/schema
+    type: object
+    properties:
+      pan_weight:
+        type: number
+        description: Pan intensity multiplier
+        minimum: 0.1
+        maximum: 5.0
+        default: 1.0
+    additionalProperties: false
+- id: 6
+  name: SimpleMeanFusionTransform
+  version: 1.0.0
+  artifact_type: grdl_processor
+  description: Weighted linear average fusion.
+  author: geoint.org
+  license: MIT
+  pypi_package: grdl-eo
+  conda_package: grdl-eo
+  conda_channel: conda-forge
+  processor_class: grdl_eo.fusion.pansharpen.SimpleMeanFusionTransform
+  processor_version: 1.0.0
+  processor_type: transform
+  yaml_definition: null
+  python_dsl: null
+  tags:
+    modalities:
+    - PAN
+    - MSI
+    category:
+    - enhance
+  requires_global_pass: false
+  alternatives: []
+  param_schema:
+    $schema: https://json-schema.org/draft/2020-12/schema
+    type: object
+    properties:
+      pan_weight:
+        type: number
+        description: Weight of pan relative to multispectral
+        minimum: 0.0
+        maximum: 1.0
+        default: 0.5
+    additionalProperties: false
+- id: 7
+  name: SpectralIndexTransform
+  version: 1.0.0
+  artifact_type: grdl_processor
+  description: Spectral Index Transform (NDVI, NDWI, NDBI, SAVI, RATIO).
+  author: geoint.org
+  license: MIT
+  pypi_package: grdl-eo
+  conda_package: grdl-eo
+  conda_channel: conda-forge
+  processor_class: grdl_eo.spectral.indices.SpectralIndexTransform
+  processor_version: 1.0.0
+  processor_type: transform
+  yaml_definition: null
+  python_dsl: null
+  tags:
+    modalities:
+    - MSI
+    - HSI
+    category:
+    - math
+  requires_global_pass: false
+  alternatives: []
+  param_schema:
+    $schema: https://json-schema.org/draft/2020-12/schema
+    type: object
+    properties:
+      index_type:
+        type: string
+        description: Spectral index type
+        enum:
+        - NDVI
+        - NDWI
+        - NDBI
+        - SAVI
+        - RATIO
+        default: NDVI
+      nir_idx:
+        type: integer
+        description: NIR / Band 1 zero-based index
+        minimum: 0
+        maximum: 1000
+        default: 3
+      red_idx:
+        type: integer
+        description: Red / Band 2 zero-based index
+        minimum: 0
+        maximum: 1000
+        default: 2
+      green_idx:
+        type: integer
+        description: Green zero-based index
+        minimum: 0
+        maximum: 1000
+        default: 1
+      swir_idx:
+        type: integer
+        description: SWIR zero-based index
+        minimum: 0
+        maximum: 1000
+        default: 5
+      savi_l:
+        type: number
+        description: Soil adjustment factor for SAVI
+        minimum: 0.0
+        maximum: 1.0
+        default: 0.5
+    additionalProperties: false
+remote_versions: []
