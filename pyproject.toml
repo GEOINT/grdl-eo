@@ -20,8 +20,11 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: GIS",
     "Topic :: Scientific/Engineering :: Image Processing",
+    "Typing :: Typed",
 ]
 dependencies = [
     "grdl>=0.8.1",
@@ -34,6 +37,9 @@ dev = [
     "pytest>=7.0.0",
 ]
 
+[project.urls]
+Repository = "https://github.com/GEOINT/grdl-eo"
+
 [project.entry-points."grdl.catalogs"]
 grdl_eo = "grdl_eo:get_catalog_path"
 
@@ -44,7 +50,11 @@ include-package-data = true
 include = ["grdl_eo*"]
 
 [tool.setuptools.package-data]
-grdl_eo = ["catalog.yaml"]
+grdl_eo = ["**/*.md", "py.typed", "catalog.yaml"]
+
+[tool.setuptools.data-files]
+"share/grdl-eo" = ["README.md", "LICENSE"]
+"share/grdl-eo/.github/workflows" = [".github/workflows/publish.yml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
